@@ -3,10 +3,10 @@
 # 1. Hello World
 
 def hello
-  puts "Hello World"
+  puts 'Hello World'
 end
 
-hello()
+hello
 
 # 2.挨拶
 
@@ -14,4 +14,4 @@ def greeting(name)
   puts "おはよう#{name}!"
 end
 
-greeting("渡辺さん")
+greeting('渡辺さん')
