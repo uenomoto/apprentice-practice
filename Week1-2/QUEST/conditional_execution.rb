@@ -4,17 +4,17 @@
 
 def greater(x, y)
   if x > y
-    puts "#{x}より#{y}の方が小さい"
+    "#{x}より#{y}の方が小さい"
   elsif x < y
-    puts "#{x}より#{y}の方が大きい"
+    "#{x}より#{y}の方が大きい"
   else
-    puts '値は等しいです'
+    '値は等しいです'
   end
 end
 
-greater(5, 4)
-greater(-50, -40)
-greater(1000, 1000)
+puts greater(5, 4)
+puts greater(-50, -40)
+puts greater(1000, 1000)
 
 # 2. 電車の料金
 # 問題: 東京駅から新宿駅までJR山手線に乗って移動します。12歳以上は大人料金で200円、6歳以上12歳未満はこども料金で100円、
@@ -26,17 +26,17 @@ def train_fare(age)
   infant_fare = 0
 
   if age >= 12
-    puts adult_fare
+    adult_fare
   elsif age >= 6
-    puts child_fare
+    child_fare
   else
-    puts infant_fare
+    infant_fare
   end
 end
 
-train_fare(12)
-train_fare(6)
-train_fare(5)
+puts train_fare(12)
+puts train_fare(6)
+puts train_fare(5)
 
 # 3.XOR
 # 問題:2つのブーリアン値 x と y が与えられ、x と y のうちどちらかが真なら true を出力し、両方真もしくは両方偽なら false を出力する関数 xor を定義してください
