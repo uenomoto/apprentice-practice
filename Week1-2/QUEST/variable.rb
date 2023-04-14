@@ -8,3 +8,6 @@ def area(base, height)
 end
 
 area(5, 4)
+
+t = "OBJECT_ORIENTED_DEVELOPMENT"
+puts t.downcase
