@@ -4,10 +4,11 @@
 # 三角形の面積は底辺 * 高さ / 2である
 
 def area(base, height)
-  puts "こちらの三角形の面積の答えは#{base * height / 2}です"
+  result = base * height / 2
+  "こちらの三角形の面積の答えは#{result}です"
 end
 
-area(5, 4)
+puts area(5, 4)
 
 t = "OBJECT_ORIENTED_DEVELOPMENT"
 puts t.downcase
