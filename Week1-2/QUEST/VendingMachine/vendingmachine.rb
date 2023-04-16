@@ -1,5 +1,6 @@
 require './drink'
 require './cup_coffee'
+require './snack'
 
 # このクラスは自動販売機の機能を管理します。
 class VendingMachine

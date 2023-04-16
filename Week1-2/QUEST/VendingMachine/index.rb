@@ -4,6 +4,7 @@
 require './drink'
 require './cup_coffee'
 require './vendingmachine'
+require './snack'
 
 vending_machine = VendingMachine.new(manufacturer_name: 'サントリー')
 
@@ -13,15 +14,14 @@ cola = Drink.new(name: 'cola', price: 150)
 hot_cup_coffee = CupCoffee.new(name: 'hot cup coffee', price: 100)
 cold_cup_coffee = CupCoffee.new(name: 'cold cup coffee', price: 100)
 
-# puts vending_machine.deposit_coin(100)
-# puts hot_cup_coffee.add_cup(1)
-# puts vending_machine.press_button(hot_cup_coffee)
-# puts vending_machine.deposit_coin(100)
-# puts vending_machine.deposit_coin(100)
-# puts vending_machine.deposit_coin(100)
-# puts vending_machine.press_button(cider)
-# # puts vending_machine.press_button(cola)
-# puts vending_machine.deposit_coin(100)
-# puts hot_cup_coffee.add_cup(10)
-# puts vending_machine.press_button(hot_cup_coffee)
-# puts vending_machine.press_manufacturer_name
+snack = Snack.new(name: 'potato chips', price: 150)
+
+
+puts vending_machine.press_button(cold_cup_coffee)
+puts cold_cup_coffee.add_cup(1)
+puts vending_machine.deposit_coin(100)
+puts vending_machine.press_button(cold_cup_coffee)
+puts vending_machine.press_button(snack)
+puts vending_machine.deposit_coin(100)
+puts vending_machine.deposit_coin(100)
+puts vending_machine.press_button(snack)
