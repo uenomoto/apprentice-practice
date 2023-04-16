@@ -37,25 +37,26 @@ class VendingMachine
     elsif self.total_price < item_object.price
       "#{item_object.name}を買おうとしてますが\n#{item_object.price - self.total_price}円足りません。"
       # カップ系分岐↓
-    elsif cup_count(item_object)
-      cup_count(item_object)
+    elsif cup_condition(item_object)
+      cup_condition(item_object)
     else
       # 全て変える条件に達したら合計金額から商品の金額を引き算する
       self.total_price -= item_object.price
-      "#{item_object.name}のお買い上げありがとうございました！\n現在の所持金は#{total_price}円です"
+      "#{item_object.name}のお買い上げありがとうございました！\n現在の自販機内の金額#{total_price}円です"
     end
   end
 
   # カップコーヒー購入しようとした時のみ走るメソッド、カップの数を管理し減らしたりなかったら買えなくなる
-  def cup_count(item_object)
+  def cup_condition(item_object)
     # カップの数が0以下だったらtrueになって買えなくなる
-    if item_object.is_a?(CupCoffee) && item_object.count <= 0
+    if item_object.is_a?(CupCoffee) && CupCoffee.cup_count <= 0
       "申し訳ありませんが、カップがないため#{item_object.name}を買えません。"
 
       # カップクラスを特定し、カップ買った時かつカップの数が０より多い２つの条件を満たした時のみカップの個数を減らす。
-    elsif item_object.is_a?(CupCoffee) && item_object.count.positive?
-      item_object.down_cup
-      puts "残りのカップ数: #{item_object.count}"
+    elsif item_object.is_a?(CupCoffee) && CupCoffee.cup_count.positive?
+      CupCoffee.down_cup
+      # CupCoffeeクラスを直接呼ぶ場合、putsを入れる。
+      puts "残りのカップ数: #{CupCoffee.cup_count}"
     end
   end
 
