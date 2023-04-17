@@ -87,7 +87,7 @@ end
 
 vending_machine = VendingMachine.new(manufacturer_name: 'サントリー')
 cola = Drink.new(name: 'コーラ', price: 150)
-cider= Drink.new(name: 'サイダー', price: 100)
+cider = Drink.new(name: 'サイダー', price: 100)
 
 hot_cup_coffee = CupCoffee.new(name: 'あついカップコーヒー', price: 100)
 cold_cup_coffee = CupCoffee.new(name: '冷たいカップコーヒー', price: 100)
