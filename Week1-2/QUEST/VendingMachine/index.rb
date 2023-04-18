@@ -1,47 +1,49 @@
-# 出力結果を出す用と商品の一覧と名前(new)
+# プロセスはここから始まります。
 
 # 外部ファイル呼び出し
+require './vending_machine_controller'
+require './cup_manager'
+require './cup_only_vending_machine'
 require './vendingmachine'
 require './drink'
 require './cup_coffee'
-require './cup_manager'
 require './snack'
 
-# newでインスタンス起動忘れずにじゃないとクラス内のインスタンスメソッドが使えない。
-# CupManagerクラスを先に起動させないと動かないCupManagerクラスがないよと言われる
 cup_manager = CupManager.new
-vending_machine = VendingMachine.new(cup_manager: cup_manager)
-cider = Drink.new
-cola = Drink.new(name: 'cola', price: 150)
-hot_cup_coffee = CupCoffee.new
-cold_cup_coffee = CupCoffee.new(name: 'cold cup coffee', price: 100)
-snack = Snack.new
+cup_only_vending_machine = CupOnlyVendingMachine.new(cup_manager: cup_manager)
+drink_vending_machine = VendingMachine.new
 
-puts vending_machine.press_button(snack)
-puts vending_machine.coin_in(100)
-puts vending_machine.coin_in(100)
-puts vending_machine.coin_in(100)
-puts vending_machine.coin_in(100)
-puts vending_machine.coin_in(100)
-puts vending_machine.coin_in(100)
-puts vending_machine.coin_in(100)
-puts vending_machine.coin_in(100)
-puts vending_machine.coin_in(100)
-puts vending_machine.coin_in(100)
-puts cup_manager.add_cup(1)
-puts vending_machine.press_button(hot_cup_coffee)
-puts vending_machine.press_button(hot_cup_coffee)
-puts vending_machine.press_button(cold_cup_coffee)
-puts cup_manager.add_cup(2)
-puts vending_machine.press_button(hot_cup_coffee)
-puts vending_machine.press_button(cold_cup_coffee)
-puts vending_machine.press_button(cider)
-puts vending_machine.press_button(cola)
-puts vending_machine.press_button(cola)
-puts vending_machine.press_button(cola)
-puts vending_machine.press_button(snack)
-puts cup_manager.add_cup(150)
-puts vending_machine.press_button(cola)
-puts vending_machine.coin_in(100)
-puts vending_machine.press_button(cola)
-puts vending_machine.press_manufacturer_name
+# selected_vending_machineが未定義とエラーが出た。
+# selected_vending_machineはif文の中に入っているため参照ができないため、外側で空のselected_vending_machine
+# 変数を用意しておくことで未定義エラーを回避できます。
+selected_vending_machine = nil
+
+loop do
+  vending_machines = [cup_only_vending_machine, drink_vending_machine]
+  puts '自動販売機コーナー！購入したい方を選んでね！'
+  index = 0
+  vending_machines.each do |vending_machine|
+    puts "#{index + 1}: #{vending_machine.manufacturer_name}"
+    index += 1
+  end
+
+  vending_machine_select = gets.chomp
+
+  if vending_machine_select =~ /^\d+$/ && vending_machine_select.to_i.between?(1, vending_machines.length)
+    vending_machine_select = vending_machine_select.to_i
+    selected_vending_machine = vending_machines[vending_machine_select - 1]
+    puts "お客様が選んだのは#{selected_vending_machine.manufacturer_name}です。"
+    break # 成功したらループから抜け出す
+  else
+    puts '表示番号の範囲内で選択してください' # falseならループする。
+  end
+end
+
+# ここの段階で上で作った空のselected_vending_machine変数にユーザーが選んだ番号が入って参照できます。
+if selected_vending_machine.manufacturer_name == 'サントリー'
+  controller = VendingMachineController.new(drink_vending_machine) # サントリー選んだ時のみインスタンス作成！
+  controller.vending_machine_course
+elsif selected_vending_machine.manufacturer_name == 'コカコーラ(カップ機)'
+  controller = VendingMachineController.new(cup_only_vending_machine, cup_manager) # カップ選んだ時のみインスタンス作成！
+  controller.cup_only_vending_machine_course
+end
