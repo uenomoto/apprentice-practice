@@ -44,12 +44,12 @@ end
 # ここの段階で上で作った空のselected_vending_machine変数にユーザーが選んだ番号が入って参照できます。
 case selected_vending_machine.manufacturer_name
 when 'サントリー'
-  controller = VendingMachineController.new(drink_vending_machine) # サントリー選んだ時のみインスタンス作成！
+  controller = VendingMachineController.new(vending_machine: drink_vending_machine) # サントリー選んだ時のみインスタンス作成！
   controller.vending_machine_course
 when 'コカコーラ(カップ機)'
-  controller = VendingMachineController.new(cup_only_vending_machine, cup_manager)
+  controller = VendingMachineController.new(vending_machine: cup_only_vending_machine, cup_manager: cup_manager)
   controller.cup_only_vending_machine_course
 when 'ダイドー'
-  controller = VendingMachineController.new(dydo_drink_machine) # サントリー選んだ時のみインスタンス作成！
+  controller = VendingMachineController.new(vending_machine: dydo_drink_machine) # dydo選んだ時のみインスタンス作成！
   controller.dydo_vending_machine_course
 end

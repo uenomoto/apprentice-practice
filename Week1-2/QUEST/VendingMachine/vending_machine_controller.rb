@@ -1,7 +1,7 @@
 # 自販機購入時の処理管理専用のクラス
 class VendingMachineController
   # サントリーの方はcup_managerないからnilで↓
-  def initialize(vending_machine, cup_manager = nil)
+  def initialize(vending_machine:, cup_manager: nil)
     @vending_machine = vending_machine # ここにインスタンス作成した際に入れた引数が入る
     @cup_manager = cup_manager # カップ専用自販機のみカップの数管理
   end
