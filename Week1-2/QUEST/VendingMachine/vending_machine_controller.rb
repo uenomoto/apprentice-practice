@@ -10,10 +10,10 @@ class VendingMachineController
     # ボスマート付き自販機
     drink_vending_machine = VendingMachine.new
     cola = Drink.new
+    snack = Snack.new
     monsuta = Drink.new(name: 'モンスターエナジー', price: 300)
     natyan = Drink.new(name: 'なっちゃん', price: 100)
     iemon = Drink.new(name: 'いえもん', price: 150)
-    snack = Snack.new
     ageone = Snack.new(name: '揚げ一番', price: 100)
   
     loop do
@@ -29,6 +29,7 @@ class VendingMachineController
       drink_and_snacks = [cola, monsuta, natyan, iemon, snack, ageone]
       index = 0
       drink_and_snacks.each do |item|
+        puts '--'
         puts "#{index + 1}:#{item.name}:値段#{item.price}円"
         index += 1
       end
@@ -81,6 +82,7 @@ class VendingMachineController
       cup_items = [hot_coffee, cold_coffee, delicious_coffee, high_class_coffee]
       index = 0
       cup_items.each do |cup_item|
+        puts '--'
         puts "#{index + 1}:#{cup_item.name}:値段#{cup_item.price}円"
         index += 1
       end
@@ -96,6 +98,50 @@ class VendingMachineController
         break if cup_only_vending_machine.balance < 100 || cup_manager.remaining_cups.zero?
   
         puts '継続して購入しますか？(Y/N)'
+        continue = gets.chomp.upcase
+        break if continue == 'N'
+      else
+        puts '商品番号の範囲内で入力してください'
+      end
+    end
+    puts 'ご利用ありがとうございました！'
+  end
+
+  def dydo_vending_machine_course
+    dydo_vending_machine = DydoVendingMachine.new
+    blend = Drink.new(name: 'ブレンドコーヒー', price: 100)
+    barista = Drink.new(name: 'バリスタ', price: 150)
+    saraore = Drink.new(name: 'さらっとしぼったオレンジ', price: 150)
+    black = Drink.new(name: 'ブラック樽', price: 100)
+    blue = Drink.new(name: 'デミタス微糖', price: 100)
+    loop do
+      puts 'お金を入れてください'
+      price = gets.chomp.to_i
+      price_result = dydo_vending_machine.coin_in(price)
+  
+      break unless price_result == 'お金は100円,500円,1000円のみ投入可能です'
+    end
+  
+    loop do # 継続購入させる
+      puts '買いたいものを選んでください'
+      dydo_drinks = [blend, barista, saraore, black, blue]
+      index = 0
+      dydo_drinks.each do |item|
+        puts '--'
+        puts "#{index + 1}:#{item.name}:値段#{item.price}円"
+        index += 1
+      end
+  
+      item_order = gets.chomp.to_i
+  
+      if item_order.between?(1, dydo_drinks.length)
+        selected_item = dydo_drinks[item_order - 1]
+        puts "お客様が選んだのは#{selected_item.name}です。"
+        puts dydo_vending_machine.press_button(selected_item)
+  
+        break if dydo_vending_machine.balance < 100
+  
+        puts '継続して購入しますか？(Y/N)' # 100円以上あったら継続
         continue = gets.chomp.upcase
         break if continue == 'N'
       else

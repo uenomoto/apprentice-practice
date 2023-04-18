@@ -1,20 +1,27 @@
 # カップの数を管理するクラスです。
 class CupManager
   attr_reader :cup_count
+
   def initialize
     @cup_count = 0
   end
 
   def add_cup(count)
+    # ガード節を使用しリファクタリング↓
+    # if count.between?(1, max_cup_count) 
+    #   @cup_count += count
+    # else
+    #   return '1~5個の間で補充してください'
+    # end
+    # "増やした現在のカップの数: #{@cup_count}"
+    
     # カップの数をmax5個にする
     max_cup_count = 5
 
     # add_cupの引数が1~5の範囲でbetween?は1から5までの範囲を決めています。
-    if count.between?(1, max_cup_count)
-      @cup_count += count
-    else
-      return '1~5個の間で補充してください'
-    end
+    return '1~5個の間で補充してください' unless count.between?(1, max_cup_count)
+
+    @cup_count += count
     "増やした現在のカップの数: #{@cup_count}"
   end
 
