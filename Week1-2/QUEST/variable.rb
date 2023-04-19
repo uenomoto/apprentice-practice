@@ -12,5 +12,5 @@ end
 
 puts area(5, 4)
 
-t = 'OBJECT_ORIENTED_DEVELOPMENT'
+t = 'EXCEPTION'
 puts t.downcase
