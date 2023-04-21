@@ -23,14 +23,14 @@ class CardScore
       "カードは#{num_handle(handle)}の#{jqk_handle_card}:#{points}点です" # #{num_handle(handle)}がnilになってしまう
       # 原因引数の順番が違くてだめになるキーワード引数にしてみた！
     end
-    
+
     # 山札クラスに得点とJQKAを提供(JQKAこれらは、数字ではなく数字の様な柄なのでこっち)
     # なぜここに書くのかは今後カードの柄が増えても、(ジョーカ)カード関係のこのクラスを変えればいいようにここで書いてます。
     def points
       (1..10).to_a + %w[J Q K A]
     end
 
-    # 山札クラスに渡す。それぞれの柄に(1..10)の数字と数字の柄(JQKAがある)
+    # 山札クラスとrandom_scoreに渡す。それぞれの柄に(1..10)の数字と数字の柄(JQKAがある)
     def handles
       %w[h s c d]
     end
@@ -46,14 +46,32 @@ class CardScore
         "カードは#{num_handle(handle)}:#{points}点です"
       when 10
         jqk_handle = %w[J Q K].sample
-        jqk_handle(points: points, jqk_handle: jqk_handle, handle: handle)
+        jqk_handle(points: 10, jqk_handle: jqk_handle, handle: handle)
       end
+    end
+
+    # 得点のみを取得するメソッド
+    def point_card_info(card_info, total_score)
+      # カード情報の文字列から得点とJQKAを抽出する正規表現パターン
+      point_pattern = /(?<=の)(\d+|[JQKA])/
+      match_data = card_info.match(point_pattern)
+      point = match_data[0]
+      
+      # 抜き出した文字列の数字を計算したいため整数に変更している
+      point = if point.to_i.to_s == point # 数字の場合
+                point.to_i # 入ってきた数字がそのまま得点となる
+              elsif point == 'A'
+                total_score <= 10 ? 11 : 1 # エースの場合のみ基本11点で合計が10超えてると1点となる
+              else # J, Q, K の場合10点
+                10
+              end
+      point
     end
 
     # ランダムde得点と柄を紐付けるメソッド(出力結果はscoresの文章)
     def random_score
       points = rand(1..10)
-      handle = %w[h s c d].sample
+      handle = handles.sample
       if points == 10
         jqk_handle = %w[J Q K].sample
         scores(points: points, jqk_handle: jqk_handle, handle: handle)
@@ -67,4 +85,4 @@ class CardScore
   end
 end
 
-puts CardScore.random_score
+# puts CardScore.random_score

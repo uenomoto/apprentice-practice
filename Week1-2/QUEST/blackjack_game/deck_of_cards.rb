@@ -5,10 +5,10 @@ class DeckOfCards
   attr_reader :card_count
 
   def initialize
-    @card_count = deck_management
+    @card_count = deck_management # 山札の残枚数管理
   end
 
-  # 山札管理
+  # 山札管理：残枚数と柄点数全て管理 putsで呼ぶ際はdeck_managementで呼ぶと初期値だから引かれないため、card_countを呼ぶ！
   def deck_management
     handles = CardScore.handles
     points = CardScore.points
@@ -32,9 +32,9 @@ class DeckOfCards
   #   end
   #   card_count
 
-  # 引いたカードを確認するためのメソッド
+  # draw_cardの一部、引いたカードを確認するためのメソッド
   def card_info(handle, point)
-    "#{handle}の#{point}を引きました"
+    "あなたの引いたカードは#{handle}の#{point}です。"
   end
 
   # ドローカード（カードを引く）
@@ -49,10 +49,6 @@ class DeckOfCards
   end
 end
 
-dack = DeckOfCards.new
-puts dack.card_count # 残りの山札表示
-puts dack.draw_card # カードを引くと引いたカードを表示
-puts dack.draw_card # カードを引くと引いたカードを表示
-puts dack.draw_card # カードを引くと引いたカードを表示
-puts dack.draw_card # カードを引くと引いたカードを表示
-puts dack.card_count # ちゃんと引かれているか確認
+# deck = DeckOfCards.new
+# puts deck.draw_card
+# puts deck.card_count
