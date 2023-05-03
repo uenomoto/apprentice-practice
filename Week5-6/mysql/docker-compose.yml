@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: DB
+    build:
+      dockerfile: Dockerfile
+    platform: linux/x86_64
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
