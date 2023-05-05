@@ -1,3 +1,5 @@
 .zshrc
 .DS_Store
 .env
+
+test_db_clone/
