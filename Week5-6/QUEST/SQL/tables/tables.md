@@ -77,7 +77,7 @@ SHOW COLUMNS FROM employees; 従業員
 +------------+---------------+------+-----+---------+-------+
 ```
 
-SHOW COLUMNS FROM salaries; 給与
+SHOW COLUMNS FROM salaries; 給与(年収)
 
 ```
 +-----------+------+------+-----+---------+-------+
