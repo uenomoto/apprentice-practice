@@ -38,6 +38,7 @@ source /tmp/load_salaries3.dump ;
 
 ```
 docker cp employees.sql コンテナID:/tmp/employees.sql
+docker cp load_departments.dump 558654c866b5:/tmp/load_departments.dump
 docker cp load_dept_emp.dump コンテナID:/tmp/load_dept_emp.dump
 docker cp load_dept_manager.dump コンテナID:/tmp/load_dept_manager.dump
 docker cp load_employees.dump コンテナID:/tmp/load_employees.dump
@@ -58,6 +59,10 @@ docker cp load_titles.dump コンテナID:/tmp/load_titles.dump
 膨大なデータですし、ずっとはいらないのでここにコピーしました。
 
 本来はずっといるデータなので tmp は避けましょう！
+
+tmpは2日ほどで削除されました！(検証済み)
+もう一回コピーし直しですが、メモしててよかった5分でできました。
+実際はdockerfileに書いてマウントさせるのだと思うのですが、docker勉強しなくては
 ```
 
 `mysql -u root -p < /tmp/employees.sql`で MySQL にインポートします！
