@@ -239,6 +239,19 @@ WHERE
 +--------+--------+------------+
 ```
 
+サブクエリじゃなかったらこれでできた
+
+```
+SELECT E.gender, E.emp_no, E.birth_date
+    -> FROM employees E
+    -> INNER JOIN (
+    ->   SELECT gender, MIN(birth_date) as min_birth_date
+    ->   FROM employees
+    ->   GROUP BY gender
+    -> ) AS G
+    -> ON E.gender = G.gender AND E.birth_date = G.min_birth_date;
+```
+
 相関サブクエりについて！
 ここでの e1 と e2 は、それぞれ従業員テーブル（employees）の別名（エイリアス）です。
 
